@@ -33,8 +33,6 @@ namespace FilmLibrairy
                     query.ExecuteNonQuery();
 
                     connection.Close();
-
-                    Console.WriteLine("Le film a bien été ajouté !");
                 }
                 catch (Exception e)
                 {
@@ -67,8 +65,6 @@ namespace FilmLibrairy
                     query.ExecuteNonQuery();
 
                     connection.Close();
-
-                    Console.WriteLine("Le film a bien été ajouté !");
                 }
                 catch (Exception e)
                 {
@@ -322,7 +318,7 @@ namespace FilmLibrairy
 
                     MySqlCommand query = connection.CreateCommand();
 
-                    query.CommandText = "SELECT id, titre, realisateur, date_sortie, resume, genre, duree FROM films WHERE date_sortie = '@year%'";
+                    query.CommandText = "SELECT id, titre, realisateur, date_sortie, resume, genre, duree FROM films WHERE date_sortie LIKE '@year%'";
 
                     query.Parameters.AddWithValue("@year", annee);
 

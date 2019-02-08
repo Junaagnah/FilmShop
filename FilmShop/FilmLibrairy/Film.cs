@@ -42,5 +42,15 @@ namespace FilmLibrairy
         {
             Id = id;
         }
+
+        public void AfficherFilm()
+        {
+            Console.WriteLine("Titre : " + Titre);
+            Console.WriteLine("Réalisateur : " + Realisateur);
+            Console.WriteLine("Date de sortie : " + DateDeSortie);
+            Console.WriteLine("Résumé : " + Resume);
+            Console.WriteLine("Genre : " + Genre);
+            Console.WriteLine("Durée : " + Duree + " minutes");
+        }
     }
 }
