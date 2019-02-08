@@ -106,19 +106,5 @@ namespace FilmLibrairy
         {
             String presentation = "Bonjour, je m'appelle " + NomComplet + ". J'ai " + Age + " ans. J'habite à " + Ville;
         }
-
-        public void AfficherPersonne()
-        {
-            Console.WriteLine("Nom : " + Nom);
-            Console.WriteLine("Prénom : " + Prenom);
-            Console.WriteLine("Nom complet : " + NomComplet);
-            Console.WriteLine("Adresse : " + Adresse);
-            Console.WriteLine("Ville : " + Ville);
-            Console.WriteLine("Code Postal : " + CodePostal);
-            Console.WriteLine("Date de naissance : " + DateNaissance);
-            Console.WriteLine("Age : " + Age);
-            Console.WriteLine("Taille (en cm) : " + Taille + "cm");
-            Console.WriteLine("Poids (en kg) : " + Poids + "kg");
-        }
     }
 }

@@ -107,6 +107,8 @@ namespace FilmLibrairy
                             } while (reader.Read());
                         }
                     }
+
+                    connection.Close();
                 }
                 catch (Exception e)
                 {
@@ -160,6 +162,8 @@ namespace FilmLibrairy
                             } while (reader.Read());
                         }
                     }
+
+                    connection.Close();
                 }
                 catch (Exception e)
                 {
@@ -177,6 +181,8 @@ namespace FilmLibrairy
             {
                 try
                 {
+                    connection.Open();
+
                     MySqlCommand query = connection.CreateCommand();
 
                     query.CommandText = "SELECT id, titre, realisateur, date_sortie, resume, genre, duree FROM films WHERE id = @id";
@@ -200,6 +206,8 @@ namespace FilmLibrairy
                             }
                         }
                     }
+
+                    connection.Close();
                 }
                 catch (Exception e)
                 {
@@ -217,6 +225,8 @@ namespace FilmLibrairy
             {
                 try
                 {
+                    connection.Open();
+
                     MySqlCommand query = connection.CreateCommand();
 
                     query.CommandText = "SELECT id, nom, prenom, dte_naissance, adresse, ville, cp, taille, poids FROM personnes WHERE id = @id";
@@ -250,6 +260,8 @@ namespace FilmLibrairy
                             }
                         }
                     }
+
+                    connection.Close();
                 }
                 catch (Exception e)
                 {
@@ -296,6 +308,8 @@ namespace FilmLibrairy
                             } while (reader.Read());
                         }
                     }
+
+                    connection.Close();
                 }
                 catch (Exception e)
                 {
@@ -318,7 +332,7 @@ namespace FilmLibrairy
 
                     MySqlCommand query = connection.CreateCommand();
 
-                    query.CommandText = "SELECT id, titre, realisateur, date_sortie, resume, genre, duree FROM films WHERE date_sortie LIKE '@year%'";
+                    query.CommandText = "SELECT id, titre, realisateur, date_sortie, resume, genre, duree FROM films WHERE YEAR(date_sortie) = @year";
 
                     query.Parameters.AddWithValue("@year", annee);
 
@@ -342,6 +356,8 @@ namespace FilmLibrairy
                             } while (reader.Read());
                         }
                     }
+
+                    connection.Close();
                 }
                 catch (Exception e)
                 {

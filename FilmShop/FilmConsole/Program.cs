@@ -16,7 +16,64 @@ namespace FilmConsole
 
         static void InitProgramme()
         {
+            bool quit = false;
+            String choixUser = "";
 
+            while (!quit)
+            {
+                Console.WriteLine("----------MENU PRINCIPAL----------");
+                Console.WriteLine();
+                Console.WriteLine("1. Ajouter un Film");
+                Console.WriteLine("2. Ajouter une personne");
+                Console.WriteLine("3. Afficher tous les films");
+                Console.WriteLine("4. Afficher toutes les personnes");
+                Console.WriteLine("5. Récupérer un film par ID");
+                Console.WriteLine("6. Récupérer une personne par ID");
+                Console.WriteLine("7. Récupérer un film par genre");
+                Console.WriteLine("8. Récupérer un film par année");
+                Console.WriteLine("9. Quitter");
+                Console.WriteLine();
+                Console.Write("Votre choix : ");
+                choixUser = Console.ReadLine();
+
+                switch(choixUser)
+                {
+                    case "1":
+                        AddFilm();
+                        break;
+                    case "2":
+                        AddPersonne();
+                        break;
+                    case "3":
+                        GetAllFilms();
+                        break;
+                    case "4":
+                        GetAllPersonnes();
+                        break;
+                    case "5":
+                        GetFilmById();
+                        break;
+                    case "6":
+                        GetPersonneById();
+                        break;
+                    case "7":
+                        GetFilmByGenre();
+                        break;
+                    case "8":
+                        GetFilmByYear();
+                        break;
+                    case "9":
+                        quit = true;
+                        break;
+                    default:
+                        Console.WriteLine("Merci de sélectionner un choix valide.");
+                        break;
+                }
+
+                Console.WriteLine("Appuyez sur une touche pour continuer...");
+                Console.ReadKey();
+                Console.Clear();
+            }
         }
 
         static void AddFilm()
@@ -185,7 +242,7 @@ namespace FilmConsole
 
                 foreach (Film film in films)
                 {
-                    film.AfficherFilm();
+                    AfficherFilm(film);
                 }
             }
             catch (Exception e)
@@ -204,7 +261,7 @@ namespace FilmConsole
 
                 foreach (Personnes personne in personnes)
                 {
-                    personne.AfficherPersonne();
+                    AfficherPersonne(personne);
                 }
             }
             catch (Exception e)
@@ -225,7 +282,7 @@ namespace FilmConsole
 
             while (!isId)
             {
-                if (int.TryParse(idTemp, out id))
+                if (!int.TryParse(idTemp, out id))
                 {
                     Console.WriteLine("Merci d'entrer un ID correct.");
                     Console.Write("ID : ");
@@ -240,7 +297,7 @@ namespace FilmConsole
             try
             {
                 Film film = DataAccess.GetFilmById(id);
-                film.AfficherFilm();
+                AfficherFilm(film);
             }
             catch (Exception e)
             {
@@ -260,7 +317,7 @@ namespace FilmConsole
 
             while (!isId)
             {
-                if (int.TryParse(idTemp, out id))
+                if (!int.TryParse(idTemp, out id))
                 {
                     Console.WriteLine("Merci d'entrer un ID correct.");
                     Console.Write("ID : ");
@@ -275,7 +332,7 @@ namespace FilmConsole
             try
             {
                 Personnes personne = DataAccess.GetPersonneById(id);
-                personne.AfficherPersonne();
+                AfficherPersonne(personne);
             }
             catch (Exception e)
             {
@@ -302,7 +359,7 @@ namespace FilmConsole
                 {
                     foreach(Film film in films)
                     {
-                        film.AfficherFilm();
+                        AfficherFilm(film);
                     }
                 }
             }
@@ -348,7 +405,7 @@ namespace FilmConsole
                 {
                     foreach(Film film in films)
                     {
-                        film.AfficherFilm();
+                        AfficherFilm(film);
                     }
                 }
             }
@@ -356,6 +413,32 @@ namespace FilmConsole
             {
                 Console.WriteLine(e.Message);
             }
+        }
+
+        static void AfficherFilm(Film film)
+        {
+            Console.WriteLine("Titre : " + film.Titre);
+            Console.WriteLine("Réalisateur : " + film.Realisateur);
+            Console.WriteLine("Date de sortie : " + film.DateDeSortie);
+            Console.WriteLine("Résumé : " + film.Resume);
+            Console.WriteLine("Genre : " + film.Genre);
+            Console.WriteLine("Durée : " + film.Duree + " minutes");
+            Console.WriteLine();
+        }
+
+        static void AfficherPersonne(Personnes personne)
+        {
+            Console.WriteLine("Nom : " + personne.Nom);
+            Console.WriteLine("Prénom : " + personne.Prenom);
+            Console.WriteLine("Nom complet : " + personne.NomComplet);
+            Console.WriteLine("Adresse : " + personne.Adresse);
+            Console.WriteLine("Ville : " + personne.Ville);
+            Console.WriteLine("Code Postal : " + personne.CodePostal);
+            Console.WriteLine("Date de naissance : " + personne.DateNaissance);
+            Console.WriteLine("Age : " + personne.Age);
+            Console.WriteLine("Taille (en cm) : " + personne.Taille + "cm");
+            Console.WriteLine("Poids (en kg) : " + personne.Poids + "kg");
+            Console.WriteLine();
         }
     }
 }
