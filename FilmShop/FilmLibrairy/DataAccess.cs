@@ -310,5 +310,50 @@ namespace FilmLibrairy
             return films;
         }
 
+        public static List<Film> GetFilmsByYear(int annee)
+        {
+            List<Film> films = new List<Film>();
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    MySqlCommand query = connection.CreateCommand();
+
+                    query.CommandText = "SELECT id, titre, realisateur, date_sortie, resume, genre, duree FROM films WHERE date_sortie = '@year%'";
+
+                    query.Parameters.AddWithValue("@year", annee);
+
+                    using (MySqlDataReader reader = query.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            reader.Read();
+
+                            do
+                            {
+                                //reader[0] : id
+                                //reader[1] : titre
+                                //reader[2] : realisateur
+                                //reader[3] : date_sortie
+                                //reader[4] : resume
+                                //reader[5] : genre
+                                //reader[6] : duree
+
+                                films.Add(new Film(Convert.ToInt32(reader[0]), Convert.ToString(reader[1]), Convert.ToString(reader[2]), Convert.ToDateTime(reader[3]), Convert.ToString(reader[4]), Convert.ToString(reader[5]), Convert.ToInt32(reader[6])));
+                            } while (reader.Read());
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
+            }
+
+            return films;
+        }
     }
 }
