@@ -11,7 +11,12 @@ namespace FilmConsole
     {
         static void Main(string[] args)
         {
-            AddFilm();
+            InitProgramme();
+        }
+
+        static void InitProgramme()
+        {
+
         }
 
         static void AddFilm()
@@ -177,15 +182,179 @@ namespace FilmConsole
             try
             {
                 films = DataAccess.GetAllFilms();
+
+                foreach (Film film in films)
+                {
+                    film.AfficherFilm();
+                }
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
+        }
 
-            foreach(Film film in films)
+        static void GetAllPersonnes()
+        {
+            List<Personnes> personnes = new List<Personnes>();
+
+            try
             {
+                personnes = DataAccess.GetAllPersonnes();
+
+                foreach (Personnes personne in personnes)
+                {
+                    personne.AfficherPersonne();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        static void GetFilmById()
+        {
+            String idTemp;
+            bool isId = false;
+
+            int id = 0;
+
+            Console.Write("ID : ");
+            idTemp = Console.ReadLine();
+
+            while (!isId)
+            {
+                if (int.TryParse(idTemp, out id))
+                {
+                    Console.WriteLine("Merci d'entrer un ID correct.");
+                    Console.Write("ID : ");
+                    idTemp = Console.ReadLine();
+                }
+                else
+                {
+                    isId = true;
+                }
+            }
+
+            try
+            {
+                Film film = DataAccess.GetFilmById(id);
                 film.AfficherFilm();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        static void GetPersonneById()
+        {
+            String idTemp;
+            bool isId = false;
+
+            int id = 0;
+
+            Console.Write("ID : ");
+            idTemp = Console.ReadLine();
+
+            while (!isId)
+            {
+                if (int.TryParse(idTemp, out id))
+                {
+                    Console.WriteLine("Merci d'entrer un ID correct.");
+                    Console.Write("ID : ");
+                    idTemp = Console.ReadLine();
+                }
+                else
+                {
+                    isId = true;
+                }
+            }
+
+            try
+            {
+                Personnes personne = DataAccess.GetPersonneById(id);
+                personne.AfficherPersonne();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        static void GetFilmByGenre()
+        {
+            String genre;
+            List<Film> films = new List<Film>();
+
+            Console.Write("Genre : ");
+            genre = Console.ReadLine();
+
+            try
+            {
+                films = DataAccess.GetFilmsByGenre(genre);
+                if (!films.Any())
+                {
+                    Console.WriteLine("Aucun film n'a été trouvé.");
+                }
+                else
+                {
+                    foreach(Film film in films)
+                    {
+                        film.AfficherFilm();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        static void GetFilmByYear()
+        {
+            List<Film> films = new List<Film>();
+            String yearTemp;
+
+            int year = 0;
+            bool isYear = false;
+
+            Console.Write("Année : ");
+            yearTemp = Console.ReadLine();
+
+            while(!isYear)
+            {
+                if (!int.TryParse(yearTemp, out year) || yearTemp.Length > 4 || yearTemp.Length < 4)
+                {
+                    Console.WriteLine("Merci d'entrer une année valide.");
+                    Console.Write("Année : ");
+                    yearTemp = Console.ReadLine();
+                }
+                else
+                {
+                    isYear = true;
+                }
+            }
+
+            try
+            {
+                films = DataAccess.GetFilmsByYear(year);
+                if (!films.Any())
+                {
+                    Console.WriteLine("Aucun film n'a été trouvé.");
+                }
+                else
+                {
+                    foreach(Film film in films)
+                    {
+                        film.AfficherFilm();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
             }
         }
     }
